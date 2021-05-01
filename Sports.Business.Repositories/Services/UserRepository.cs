@@ -19,7 +19,7 @@ namespace Sports.Business.Repositories.Services
         }
         public async Task<UserModel> GetUser(long id)
         {
-            var user = await _context.User
+            var user = await _context.Users
                                     .Where(x => x.Id == id)
                                     .Select(x => new UserModel { RoleId = x.Id, FirstName = x.FirstName, MiddleName = x.MiddleName, LastName = x.LastName, PhoneNumber = x.PhoneNumber, BirthDate = x.BirthDate, Email = x.Email, Height = x.Height, Weight = x.Weight }).FirstOrDefaultAsync();
 
@@ -27,7 +27,7 @@ namespace Sports.Business.Repositories.Services
         }
         public async Task<List<UserModel>> GetUserDetails(long[] ids)
         {
-            var users = await _context.User
+            var users = await _context.Users
                                     .Where(x => ids.Contains(x.Id))
                                     .Select(x => new UserModel { RoleId = x.Id, FirstName = x.FirstName, MiddleName = x.MiddleName, LastName = x.LastName, PhoneNumber = x.PhoneNumber, BirthDate = x.BirthDate, Email = x.Email, Height = x.Height, Weight = x.Weight }).ToListAsync();
 
@@ -43,7 +43,7 @@ namespace Sports.Business.Repositories.Services
         }
         public async Task<List<SelectListItem>> GetUserSelectList(long Id)
         {
-            var user = await _context.User
+            var user = await _context.Users
                                    .Select(x => new SelectListItem { Value = x.Id.ToString() }).ToListAsync();
 
             return user;
@@ -51,7 +51,7 @@ namespace Sports.Business.Repositories.Services
         public async Task<bool> Insert(UserModel model)
         {
             var user = new Data.Entities.User { FirstName = model.FirstName, MiddleName = model.MiddleName, LastName = model.LastName, BirthDate = model.BirthDate, Height = model.Height, Email = model.Email, PhoneNumber = model.PhoneNumber, RoleId = model.RoleId, Weight = model.Weight };
-            _context.User.Add(user);
+            _context.Users.Add(user);
 
             var teamMember = new Data.Entities.TeamMember { TeamId = model.TeamId, User = user };
             _context.TeamMembers.Add(teamMember);
@@ -62,7 +62,7 @@ namespace Sports.Business.Repositories.Services
         }
         public async Task<bool> Update(UserModel model)
         {
-            var user = await _context.User
+            var user = await _context.Users
                                     .Where(x => x.Id == model.Id).FirstOrDefaultAsync();
 
             if (user != null)
@@ -111,9 +111,9 @@ namespace Sports.Business.Repositories.Services
 
             _context.TeamMembers.RemoveRange(teamMembers);
 
-            var user = _context.User.Find(id);
+            var user = _context.Users.Find(id);
 
-            _context.User.Remove(user);
+            _context.Users.Remove(user);
 
             await _context.SaveChangesAsync();
 
@@ -142,32 +142,32 @@ namespace Sports.Business.Repositories.Services
         }
         public async Task<UserModel> CheckUserExists(string username, string password)
         {
-            return await _context.User
+            return await _context.Users
                                     .Where(x => x.Email == username && x.Password == password)
                                     .Select(x => new UserModel { Id = x.Id, FirstName = x.FirstName, LastName = x.LastName, BirthDate = x.BirthDate, PhoneNumber = x.PhoneNumber, Email = x.Email, Password = x.Password, Height = x.Height, Weight = x.Weight, RoleId = x.RoleId, RoleName = ((UserRole)x.RoleId).ToString() }).FirstOrDefaultAsync();
         }
 
         public bool CheckEmailIdExists(string email)
         {
-            return _context.User.Any(x => x.Email.ToLower() == email.ToLower());
+            return _context.Users.Any(x => x.Email.ToLower() == email.ToLower());
         }
         public async Task<bool> IsUserWithEmailIdExists(string email, long userId)
         {
             if(userId > 0)
             {
-                var isExists = await _context.User.AnyAsync(x => x.Id == userId && x.Email.ToLower() == email.ToLower());
+                var isExists = await _context.Users.AnyAsync(x => x.Id == userId && x.Email.ToLower() == email.ToLower());
 
                 if (isExists)
                     return false;
             }
             
 
-            return await _context.User.AnyAsync(x => x.Email.ToLower() == email.ToLower());
+            return await _context.Users.AnyAsync(x => x.Email.ToLower() == email.ToLower());
         }
 
         public async Task<bool> ChangePassword(string email, string password)
         {
-            var user = await _context.User
+            var user = await _context.Users
                                     .Where(x => x.Email == email).FirstOrDefaultAsync();
 
             if (user != null)
