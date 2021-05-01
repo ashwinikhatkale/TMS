@@ -1,0 +1,58 @@
+﻿@model List<Sports.Business.Repositories.Models.TeamModel>
+@{
+    ViewBag.Title = "Your Teams";
+}
+@section styles{
+    @Styles.Render("~/Content/team")
+}
+<link href="~/Content/table.css" rel="stylesheet" />
+
+<div class="d-flex justify-content-center align-items-center">
+    <div class="register-container" style="width:100%">
+        <h2>@ViewBag.Title</h2>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <table style="margin: 2% auto; padding: 5px; width: 100%">
+                    <thead>
+                        <tr style="background-color: #FFFACD">
+                            <th>Team Name</th>
+                            <th>Description</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Any())
+                        {
+                            foreach (var team in Model)
+                            {
+                                <tr>
+
+                                    <td>@team.TeamName</td>
+                                    <td>@team.Description</td>
+                                    <td>
+                                        @Html.ActionLink("Select Players", "Index", "Players", new { area = "Caption", teamId = team.TeamId }, null)
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr><td colspan="5">Records not found.</td></tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/team")
+}
+
+
+
+
+

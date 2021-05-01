@@ -1,0 +1,40 @@
+﻿
+
+@model Sports.Models.LoginModel
+@{
+    ViewBag.Title = "Login";
+}
+
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="login-container">
+        <img class="profile-avatar" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+        @using (Html.BeginForm("Index", "Login", FormMethod.Post, new { area = "" }))
+        {
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="ReturnUrl" value="@Request.QueryString["ReturnUrl"]" />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.Label("Username", htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.UserName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.Label("Password", htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.Password, new { @class = "form-control", @type = "password" })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+            <button type="submit" class="btn btn-sign-in">Sign in</button>
+            <div class="form-group text-center">
+                <a class="btn btn-link px-0" id="forgot-password" href="@Url.Content("~/Login/ForgotPassword")">Forgot your password?</a>
+                
+
+            </div>
+        }
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+}

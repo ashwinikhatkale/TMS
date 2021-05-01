@@ -1,0 +1,50 @@
+﻿@model List<Sports.Business.Repositories.Models.TeamModel>
+@{
+    ViewBag.Title = "Your Teams";
+}
+@section styles{
+    @Styles.Render("~/Content/table")
+}
+<link href="~/Content/table.css" rel="stylesheet" />
+<div class="d-flex justify-content-center align-items-center ">
+    <div class="register-container" style="width:100%">
+        
+            <h2>@ViewBag.Title</h2>
+        
+        <fieldset>
+            <div class="row">
+                <div class="col-lg-12">
+
+
+                    <table style="margin: 2% auto; padding: 5px; width: 100%">
+                        <thead>
+                            <tr style="background-color: #FFFACD">
+                                <th>Team Name</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Any())
+                            {
+                                foreach (var team in Model)
+                                {
+                                    <tr>
+
+                                        <td>@team.TeamName</td>
+                                        <td>@team.Description</td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr><td colspan="2">Your Not Selected Any Team.</td></tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>
+
+

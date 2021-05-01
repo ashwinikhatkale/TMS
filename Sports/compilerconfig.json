@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "Content/add-player.css",
+    "inputFile": "Content/add-player.scss"
+  },
+  {
+    "outputFile": "Content/table.css",
+    "inputFile": "Content/table.scss"
+  }
+]

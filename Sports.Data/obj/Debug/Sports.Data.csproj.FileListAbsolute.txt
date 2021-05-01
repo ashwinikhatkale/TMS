@@ -1,0 +1,17 @@
+D:\Projects\Sports\Sports.Data\obj\Debug\Sports.Data.csprojAssemblyReference.cache
+D:\Projects\Sports\Sports.Data\obj\Debug\Sports.Data.csproj.CoreCompileInputs.cache
+D:\Projects\Sports\Sports.Data\bin\Debug\Sports.Data.dll.config
+D:\Projects\Sports\Sports.Data\bin\Debug\Sports.Data.dll
+D:\Projects\Sports\Sports.Data\bin\Debug\Sports.Data.pdb
+D:\Projects\Sports\Sports.Data\bin\Debug\DocumentFormat.OpenXml.dll
+D:\Projects\Sports\Sports.Data\bin\Debug\EntityFramework.dll
+D:\Projects\Sports\Sports.Data\bin\Debug\EntityFramework.SqlServer.dll
+D:\Projects\Sports\Sports.Data\bin\Debug\DocumentFormat.OpenXml.xml
+D:\Projects\Sports\Sports.Data\bin\Debug\EntityFramework.xml
+D:\Projects\Sports\Sports.Data\bin\Debug\EntityFramework.SqlServer.xml
+D:\Projects\Sports\Sports.Data\obj\Debug\Sports.Data.csproj.CopyComplete
+D:\Projects\Sports\Sports.Data\obj\Debug\Sports.Data.dll
+D:\Projects\Sports\Sports.Data\obj\Debug\Sports.Data.pdb
+D:\Projects\Sports\Sports.Data\bin\Debug\EntityFramework.Extended.dll
+D:\Projects\Sports\Sports.Data\bin\Debug\EntityFramework.Extended.xml
+D:\Projects\Sports\Sports.Data\bin\Debug\EntityFramework.Extended.dll.config

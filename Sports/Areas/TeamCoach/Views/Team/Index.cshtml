@@ -1,0 +1,58 @@
+﻿@model List<Sports.Business.Repositories.Models.TeamModel>
+@{
+    ViewBag.Title = "Manage Teams";
+}
+@section styles{
+    @Styles.Render("~/Content/table")
+}
+
+<div class="d-flex justify-content-center align-items-center">
+    <div class="register-container" style="width:100%">
+        <h2>@ViewBag.Title</h2>
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.ActionLink("Add Team", "Add", "Team", new { area = "TeamCoach" })
+
+                <table style="margin: 2% auto; padding: 5px; width: 100%">
+                    <thead>
+                        <tr style="background-color: #FFFACD">
+                            <th>Team Name</th>
+                            <th>Description</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Any())
+                        {
+                            foreach (var team in Model)
+                            {
+                                <tr>
+
+                                    <td>@team.TeamName</td>
+                                    <td>@team.Description</td>
+                                    <td>
+                                        @Html.ActionLink("Add Players", "Index", "Players", new { area = "TeamCoach", teamId = team.TeamId }, null) |
+                                        @Html.ActionLink("Edit", "Edit", "Team", new { area = "TeamCoach", id = team.TeamId }, null) |
+                                        <a role="button" class="delete-team" href="" data-id="@team.TeamId" data-name="@team.TeamName">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr><td colspan="5">Records not found.</td></tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/team")
+}
+
+
+
+

@@ -1,0 +1,72 @@
+﻿@model List<Sports.Business.Repositories.Models.UserModel>
+@using Sports.Data.Entities
+@{
+    ViewBag.Title = "Manage Players";
+}
+@section styles{
+    @Styles.Render("~/Content/table")
+}
+<link href="~/Content/table.css" rel="stylesheet" />
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="register-container" style="width:100%">
+        <h2>@ViewBag.Title</h2>
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.ActionLink("Add Players", "Add", "Players", new { area = "TeamCoach", teamId = ViewBag.TeamId }, null)
+
+                <table style="margin: 2% auto; padding: 5px; width: 100%">
+                    <thead>
+                        <tr style="background-color: #FFFACD">
+                            <th>&nbsp;</th>
+                            <th>Player Name</th>
+                            <th>Phone Number</th>
+                            <th>Email</th>
+                            <th>Height</th>
+                            <th>Weight</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Any())
+                        {
+                            foreach (var player in Model)
+                            {
+                                var isCaption = player.RoleId == (int)UserRole.Caption;
+                                <tr>
+                                    <td>
+                                        <input type="radio" name="caption" @(isCaption ? "checked='checked'" : "") class="radio-caption" data-id="@player.Id" data-team-id="@ViewBag.TeamId" data-name="@(player.FirstName+ " " + player.LastName)" style="display:block;" />
+                                    </td>
+                                    <td>@player.FirstName @player.LastName @(isCaption ? " (Caption)" : "")</td>
+                                    <td>@player.PhoneNumber</td>
+                                    <td>@player.Email</td>
+                                    <td>@player.Height</td>
+                                    <td>@player.Weight</td>
+                                    <td>
+
+                                        @Html.ActionLink("Edit", "Edit", "Players", new { area = "TeamCoach", id = player.Id }, null) |
+                                        <a role="button" class="delete-player" href="" data-id="@player.Id" data-name="@(player.FirstName+ " " + player.LastName)">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr><td colspan="6">Players not found.</td></tr>
+                        }
+
+                    </tbody>
+                </table>
+                <div class="text-info">
+                    Note: Please select radio button to change the caption.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/team-coach-players")
+}
+
+
+

@@ -1,0 +1,65 @@
+﻿@model List<Sports.Business.Repositories.Models.UserModel>
+@using Sports.Data.Entities
+@{
+    ViewBag.Title = "Players";
+}
+
+@section styles{
+    @Styles.Render("~/Content/player")
+}
+<link href="~/Content/table.css" rel="stylesheet" />
+<h2>@ViewBag.Title</h2>
+<div class="d-flex justify-content-center align-items-center ">
+    <div class="register-container" style="width:100%">
+        <h2>@ViewBag.Title</h2>
+        <button id="selectplayer" class="btn btn-primary">Select Players</button>
+        <div class="row">
+            <div class="col-lg-12">
+                <table style="margin: 2% auto; padding: 5px; width: 100%">
+                    <thead>
+                        <tr style="background-color: #FFFACD">
+                            <th>
+                                <input id="select-all" type="checkbox" name="player" @(Model.All(x => x.IsSelected) ? "checked='checked'" : "") class="radio-caption" style="display:block;" />
+                            </th>
+                            <th>FirstName</th>
+                            <th>LastName</th>
+                            <th>PhoneNumber</th>
+                            <th>Email</th>
+                            <th>Height</th>
+                            <th>Weight</th>
+                        </tr>
+                    </thead>
+                    <tbody class="players">
+                        @if (Model != null && Model.Any())
+                        {
+                            foreach (var player in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="player" @(player.IsSelected ? "checked='checked'" : "") data-id="@player.Id" data-team-id="@ViewBag.TeamId" data-name="@(player.FirstName+ " " + player.LastName)" style="display:block;" />
+                                    </td>
+                                    <td>@player.FirstName</td>
+                                    <td>@player.LastName</td>
+                                    <td>@player.PhoneNumber</td>
+                                    <td>@player.Email</td>
+                                    <td>@player.Height</td>
+                                    <td>@player.Weight</td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr><td colspan="6">Records not found.</td></tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/players")
+}
+
