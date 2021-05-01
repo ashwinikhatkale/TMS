@@ -1,6 +1,6 @@
 ﻿@model Sports.Business.Repositories.Models.UserModel
 @{
-    ViewBag.Title = "Add Players";
+    ViewBag.Title = Model.Id > 0 ? "Edit Player" : "Add Players";
 }
 
 @section styles{
@@ -13,7 +13,7 @@
         {
             @Html.HiddenFor(m => m.TeamId)
             @Html.HiddenFor(m => m.RoleId)
-
+            @Html.HiddenFor(m => m.Id)
             <h4>Add Player</h4>
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
@@ -61,14 +61,14 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="form-group">
-                        @Html.Label("Height ", htmlAttributes: new { @class = "control-label" })
+                        @Html.Label("Height (in foot) ", htmlAttributes: new { @class = "control-label" })
                         @Html.TextBoxFor(model => model.Height, new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.Height, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="form-group">
-                        @Html.Label("Weight", htmlAttributes: new { @class = "control-label" })
+                        @Html.Label("Weight (in kg)", htmlAttributes: new { @class = "control-label" })
                         @Html.TextBoxFor(model => model.Weight, new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.Weight, "", new { @class = "text-danger" })
                     </div>
@@ -86,6 +86,7 @@
                                         <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
                                     </div>
                                 </div>
+                                @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
                             </div>
                         </div>
                     </div>
@@ -95,22 +96,17 @@
                 </div>
             </div>
         }
+        <div class="row">
+            <div class="col-lg-12">
+                <br />
+                @Html.ActionLink("Back to List", "Index", "Players", new { area = "TeamCoach", teamId = Model.TeamId }, new { @class = "col-lg-12" })
+            </div>
+        </div>
     </div>
 </div>
 
 @section scripts{
     @Scripts.Render("~/bundles/add-player")
-    <script>
-        $(function () {
-            $('#datetimepicker').datetimepicker({
-                "allowInputToggle": true,
-                "showClose": true,
-                "showClear": true,
-                "showTodayButton": true,
-                "format": "MM/DD/YYYY",
-            });
-        });
-    </script>
 }
 
 

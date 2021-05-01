@@ -21,7 +21,7 @@ namespace Sports.Business.Repositories.Models
         [Required(ErrorMessage = "Email Address is required.")]
         [MaxLength(50)]
         [RegularExpression(@"[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}", ErrorMessage = "Please enter valid email address.")]
-        [Remote("IsEmailExist", "Players", "TeamCoach", ErrorMessage = "User with same email address already exists.")]
+        [Remote("IsEmailExist", "Players", "TeamCoach", AdditionalFields = "Id", ErrorMessage = "User with same email address already exists.")]
         //[CustomEmailValidator]
         public string Email { get; set; }
         [Required(ErrorMessage = "Passward is required.")]
@@ -32,8 +32,8 @@ namespace Sports.Business.Repositories.Models
         public DateTime BirthDate { get; set; }
         [StringLength(10, MinimumLength = 0, ErrorMessage = "Phone Number must be less than 10 digits.")]
         public string PhoneNumber { get; set; }
-        public string Height { get; set; }
-        public string Weight { get; set; }
+        public decimal Height { get; set; }
+        public decimal Weight { get; set; }
         public long RoleId { get; set; }
         public string RoleName { get; set; }
         public long TeamId { get; set; }

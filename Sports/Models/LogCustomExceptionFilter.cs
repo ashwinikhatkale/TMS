@@ -24,14 +24,9 @@ namespace Sports.Models
                 //saving the data in a text file called Log.txt
                 //You can also save this in a dabase
                
-                string fileName = "log-" + DateTime.Now.ToString("dd-MM-yyyy hhmmss tt") + ".txt";
+                string fileName = "log-" + DateTime.Now.ToString().Replace(":","") + ".txt";
                 var path = HttpContext.Current.Server.MapPath("~/Logs/" + fileName);
 
-                if (!File.Exists(path))
-                {
-                    File.Create(path);
-                }
-                
                 File.AppendAllText(path, Message);
 
                 filterContext.ExceptionHandled = true;

@@ -26,9 +26,10 @@ namespace Sports.Areas.TeamCoach.Controllers
             return View(model);
         }
 
-        public async Task<ActionResult> Edit(long[] id)
+        public async Task<ActionResult> Edit(long id, long teamId)
         {
             var model = await _userRepository.GetUser(id);
+            model.TeamId = teamId;
             return View("Add", model);
         }
         [HttpPost]
@@ -43,7 +44,7 @@ namespace Sports.Areas.TeamCoach.Controllers
                 await _userRepository.Insert(model);
             }
 
-            return RedirectToAction("Index", new { UserId = model.RoleId });
+            return RedirectToAction("Index", new { teamId = model.TeamId });
         }
 
         public async Task<ActionResult> Delete(long id)
@@ -57,9 +58,9 @@ namespace Sports.Areas.TeamCoach.Controllers
             return Json(new { isSuccess = true });
         }
 
-        public async Task<ActionResult> IsEmailExist(string Email)
+        public async Task<ActionResult> IsEmailExist(string Email, long Id)
         {
-            var isExist = await _userRepository.IsUserWithEmailIdExists(Email);
+            var isExist = await _userRepository.IsUserWithEmailIdExists(Email, Id);
             return Json(!isExist, JsonRequestBehavior.AllowGet);
         }
     }

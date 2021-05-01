@@ -93,6 +93,12 @@ namespace Sports.Controllers
             return View();
         }
 
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index");
+        }
         public ActionResult ForgotPassword()
         {
             var model = new ForgotPasswordModel();
@@ -105,7 +111,7 @@ namespace Sports.Controllers
         {
             try
             {
-                var isUserExists = await _userRepository.IsUserWithEmailIdExists(model.EmailAddress);
+                var isUserExists = await _userRepository.IsUserWithEmailIdExists(model.EmailAddress, 0);
 
                 if(!isUserExists)
                 {
@@ -140,12 +146,6 @@ namespace Sports.Controllers
             }
 
             return View(model);
-        }
-        public ActionResult Logout()
-        {
-            Session.Abandon();
-            FormsAuthentication.SignOut();
-            return RedirectToAction("Index");
         }
     }
 }

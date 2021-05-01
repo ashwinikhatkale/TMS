@@ -39,11 +39,10 @@
                                     <td>@player.FirstName @player.LastName @(isCaption ? " (Caption)" : "")</td>
                                     <td>@player.PhoneNumber</td>
                                     <td>@player.Email</td>
-                                    <td>@player.Height</td>
-                                    <td>@player.Weight</td>
+                                    <td>@player.Height.ToString("G29") ft</td>
+                                    <td>@player.Weight.ToString("G29") kg</td>
                                     <td>
-
-                                        @Html.ActionLink("Edit", "Edit", "Players", new { area = "TeamCoach", id = player.Id }, null) |
+                                        @Html.ActionLink("Edit", "Edit", "Players", new { area = "TeamCoach", id = player.Id, teamId = ViewBag.TeamId }, null) |
                                         <a role="button" class="delete-player" href="" data-id="@player.Id" data-name="@(player.FirstName+ " " + player.LastName)">Delete</a>
                                     </td>
                                 </tr>

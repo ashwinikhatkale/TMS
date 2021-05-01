@@ -11,7 +11,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#" style="font-size: 52px; font-family:'Times New Roman'; line-height: 50px;margin-right:50px;">TMS</a>
+        <a class="navbar-brand" href="@Url.Content("/Login/Index")" style="font-size: 52px; font-family:'Times New Roman'; line-height: 50px;margin-right:50px;">TMS</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -19,20 +19,22 @@
             <div class="navbar-nav">
                 @if (User.Identity.IsAuthenticated)
                 {
-    <a class="nav-item nav-link active" href="@Url.Content("/TeamCoach/Team/Index")">Home <span class="sr-only">(current)</span></a> @*<a class="nav-item nav-link" href="#">Features</a>
-        <a class="nav-item nav-link" href="#">Pricing</a>
-        <a class="nav-item nav-link disabled" href="#">Disabled</a>*@}
-
+                    <a class="nav-item nav-link active" href="@Url.Content("/TeamCoach/Team/Index")">Home <span class="sr-only">(current)</span></a> 
+                }
             </div>
         </div>
-        <div class="navbar-text">
-            @if (User.Identity.IsAuthenticated)
-            {
-<h3 style="font-family:'Monotype Corsiva';color:blue;margin:0px;">
-    Welcome
-    <b>@HttpContext.Current.User.Identity.Name</b>
-</h3>       }
-        </div>
+         @if (User.Identity.IsAuthenticated)
+         {
+             <div class="navbar-text" style="padding-right: 5rem;">
+                <h3 style="font-family:'Monotype Corsiva';color:blue;margin:0px;">
+                    Welcome
+                    <b>@HttpContext.Current.User.Identity.Name</b>
+                </h3>
+            </div>
+            <div class="navbar-nav" style="font-weight:bold;">
+                @Html.ActionLink("Logout", "LogOut", "Login", new { area = "" }, new { @class = "nav-item nav-link active" })
+            </div>
+         }        
     </nav>
 
     <div class="container vh-100">

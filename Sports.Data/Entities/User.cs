@@ -27,8 +27,8 @@ namespace Sports.Data.Entities
         public DateTime BirthDate { get; set; }
         [StringLength(10, MinimumLength = 0, ErrorMessage = "Phone Number must be less than 10 digits.")]
         public string PhoneNumber { get; set; }
-        public string Height { get; set; }
-        public string Weight { get; set; }
+        public decimal Height { get; set; }
+        public decimal Weight { get; set; }
         public long RoleId { get; set; }
         public virtual Role Role { get; set; }
         public ICollection<TeamMember> Teams { get; set; }

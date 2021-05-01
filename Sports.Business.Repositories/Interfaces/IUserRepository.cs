@@ -6,7 +6,7 @@ namespace Sports.Business.Repositories.Interfaces
 {
     public interface IUserRepository
     {
-        Task<UserModel> GetUser(long[] ids);
+        Task<UserModel> GetUser(long id);
         Task<List<UserModel>> GetUserDetails(long[] ids);
         Task<List<UserModel>> GetPlayers(long teamId);
         Task<bool> SelectPlayers(long teamId, long[] userIds);
@@ -17,6 +17,6 @@ namespace Sports.Business.Repositories.Interfaces
         Task<bool> SetPlayerAsCaption(long teamId, long userId);
         Task<UserModel> CheckUserExists(string username, string password);
         bool CheckEmailIdExists(string email);
-        Task<bool> IsUserWithEmailIdExists(string email);
+        Task<bool> IsUserWithEmailIdExists(string email, long userId);
     }
 }

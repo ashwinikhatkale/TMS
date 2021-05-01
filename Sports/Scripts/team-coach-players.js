@@ -41,7 +41,7 @@ $(function () {
                 success: function (response) {
                     if (response.isSuccess == true) {
                         el.closest('tr').remove();
-                        alert('Message deleted successfully!');
+                        alert('Plater '+name+' has been deleted successfully!');
                     }
                 }
             });

@@ -16,7 +16,7 @@ $(function () {
                 success: function (response) {
                     if (response.isSuccess == true) {
                         el.closest('tr').remove();
-                        alert('Message deleted successfully!');
+                        alert('Team deleted successfully!');
                     }
                 }
             });

@@ -17,10 +17,10 @@ namespace Sports.Business.Repositories.Services
         {
             _context = context;
         }
-        public async Task<UserModel> GetUser(long[] ids)
+        public async Task<UserModel> GetUser(long id)
         {
             var user = await _context.User
-                                    .Where(x => ids.Contains( x.Id ))
+                                    .Where(x => x.Id == id)
                                     .Select(x => new UserModel { RoleId = x.Id, FirstName = x.FirstName, MiddleName = x.MiddleName, LastName = x.LastName, PhoneNumber = x.PhoneNumber, BirthDate = x.BirthDate, Email = x.Email, Height = x.Height, Weight = x.Weight }).FirstOrDefaultAsync();
 
             return user;
@@ -122,18 +122,18 @@ namespace Sports.Business.Repositories.Services
         public async Task<bool> SetPlayerAsCaption(long teamId, long userId)
         {
             var teamMembers = _context.TeamMembers
-                                    .Where(x => x.TeamId == teamId && x.User.RoleId != (int)UserRole.TeamCoach);
+                                    .Where(x => x.TeamId == teamId && x.User.RoleId != (int)UserRole.TeamCoach).Select(x => x.User);
 
-            var teamMember = await teamMembers.Where(x => x.UserId == userId).FirstOrDefaultAsync();
+            var teamMember = await teamMembers.Where(x => x.Id == userId).FirstOrDefaultAsync();
 
             if (teamMember != null)
             {
-                foreach (var member in teamMembers.Where(x => x.User.RoleId == (int)UserRole.Caption))
+                foreach (var member in teamMembers.Where(x => x.RoleId == (int)UserRole.Caption))
                 {
-                    member.User.RoleId = (int)UserRole.Player;
+                    member.RoleId = (int)UserRole.Player;
                 }
 
-                teamMember.User.RoleId = (int)UserRole.Caption;
+                teamMember.RoleId = (int)UserRole.Caption;
             }
 
             await _context.SaveChangesAsync();
@@ -151,8 +151,17 @@ namespace Sports.Business.Repositories.Services
         {
             return _context.User.Any(x => x.Email.ToLower() == email.ToLower());
         }
-        public async Task<bool> IsUserWithEmailIdExists(string email)
+        public async Task<bool> IsUserWithEmailIdExists(string email, long userId)
         {
+            if(userId > 0)
+            {
+                var isExists = await _context.User.AnyAsync(x => x.Id == userId && x.Email.ToLower() == email.ToLower());
+
+                if (isExists)
+                    return false;
+            }
+            
+
             return await _context.User.AnyAsync(x => x.Email.ToLower() == email.ToLower());
         }
 
